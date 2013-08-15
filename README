@@ -1,0 +1,8 @@
+# Absolute Centering in CSS
+* Originally created at CodePen.io: http://codepen.io/shshaw/pen/yGEIj *
+
+Perfect horizontal AND vertical centering in CSS, at any width or height! 
+
+Works with percentage based width/height, min-/max- width, images, position: fixed and even variable content heights.
+
+Read the [Smashing Magazine article](http://coding.smashingmagazine.com/2013/08/09/absolute-horizontal-vertical-centering-css/) or play around with the [interactive demo on CodePen](http://cdpn.io/yGEIj).
