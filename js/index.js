@@ -57,7 +57,7 @@ function highlightNav() {
 highlightNav();
 $(window).scroll( highlightNav );
 
-var $links = $('[href^=#]:not([href$=#])');
+var $links = $('[href*=#]:not([href$=#])');
 var $page  = $('.browser iframe.page');
 var $input = $('.browser .address-bar input');
 //console.log("links",$links);

@@ -151,14 +151,14 @@ Modernizr test adds ".absolutecentercontent" to <html> if the browser will cente
 }
 
 .Center-Container.is-Inline:after {
-  content: '';
+  content: ' ';
   height: 100%;
   margin-left: -0.25em; /* to offset spacing. may vary with fonts */
  }
  
 .is-Inline .Center-Block { 
 	text-align: left;
-  max-width: 99%; /* Prevents issues with long content causes the content block to be pushed to the top */
+  max-width: 80%; /* Prevents issues with long content causes the content block to be pushed to the top */
   /* max-width: calc(100% - 0.25em) /* Only for IE9+ */ 
 }
 

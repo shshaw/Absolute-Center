@@ -11,7 +11,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
   <link rel="stylesheet" href="css/normalize.css" />
-  <link rel="stylesheet" href="css/style.css" />
+  <link id="Styles" rel="stylesheet" href="css/style.css" />
 
   <script src="js/prefixfree.min.js"></script>
 
@@ -19,7 +19,7 @@
 
 <body>
 
-<div class="Modal-Background toggle-Modal is-Hidden">
+<div class="Modal-Background toggle-Modal">
   <div class="Center-Block Absolute-Center is-Fixed is-Variable Modal" id="Fixed-Modal">
   <div class="Center-Content">
     <h4 class="Title">Absolute Center.</h4>
@@ -33,7 +33,7 @@
   </div>
 </div>
 
-<nav id="Navigation">
+<nav id="Navigation" role="navigation">
   <a href="#Overview">Absolute Centering</a>
   <a href="#Comparison-Table">Comparison Table</a>
   <a href="#Explanation">Explanation</a>
@@ -55,10 +55,10 @@
     </div>
     
     <div class="Notification no-wp">
-	    <p>Thanks for the positive comments! Now you can read this article on <a href="http://coding.smashingmagazine.com/2013/08/09/absolute-horizontal-vertical-centering-css/" target="_blank">Smashing Magazine</a> and experience a few new demos (like <a href="#Resizing">Resizing</a>) and code examples (<a href="#Height">Variable Height Modernizr Test</a> &amp; <a href="#Other">Other Techniques</a>)! I've also added a <a href="#Comparison-Table">Comparison Table</a> to see which vertical centering technique is right for you.</p>
+	    <p>Thanks for the positive comments! Now you can read this article on <a href="http://coding.smashingmagazine.com/2013/08/09/absolute-horizontal-vertical-centering-css/" target="_blank">Smashing Magazine</a> and experience a few new demos (like <a href="#Resizing">Resizing</a>) and code examples (<a href="#Height">Variable Height Modernizr Test</a> &amp; <a href="#Other">Other Techniques</a>)! I've also added a <a href="http://codepen.io/shshaw/full/gEiDt#Comparison-Table">Comparison Table</a> to see which vertical centering technique is right for you.</p>
 	  </div>
 
-    <p>We've all seen <code>margin: 0 auto;</code> for horizontal centering, but <code>margin: auto;</code> has refused to work for vertical centering... <em>until now!</em> But actually (spoiler alert!) absolute centering <strong>only requires a <a href="#Height">declared height*</a> and these styles</strong></p>
+    <p>We've all seen <code>margin: 0 auto;</code> for horizontal centering, but <code>margin: auto;</code> has refused to work for vertical centering... <em>until now!</em> But actually (spoiler alert!) absolute centering <strong>only requires a <a href="#Height">declared height*</a> and these styles</strong>:</p>
     <pre>.Absolute-Center {
   margin: auto;
   position: absolute;
@@ -77,10 +77,10 @@
     <div class="Advantages Float-Left">
     <h4>Advantages:</h4>
     <ul>
-    <li>Cross-browser (including IE8-10 without hacks!)</li>
+    <li>Cross-browser (including IE8-10)</li>
     <li>No special markup, minimal styles</li>
     <li>Responsive with percentages and min-/max-</li>
-    <li>Use one class to vertically center any content</li>
+    <li>Use one class to center any content</li>
     <li>Centered regardless of padding (without <code>box-sizing</code>!)</li>
     <li>Blocks can easily be resized</li>
     <li>Works great on images</li>
@@ -188,7 +188,7 @@
   	<p>After researching specs and documentation, this is my understanding of how Absolute Centering works:</p>
   	
   	<ol>
-  	<li>In the <a href="http://taligarsiel.com/Projects/howbrowserswork1.htm#Layout" target="_blank">normal content flow</a>, <code>margin: auto;</code> doesn't work on the top and bottom due to <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/margin_collapsing" target="_blank">margin collapsing</a>
+  	<li>In the <a href="http://taligarsiel.com/Projects/howbrowserswork1.htm#Layout" target="_blank">normal content flow</a>, <code>margin: auto;</code> equals '0' for the top and bottom.
   	<small class="Reference"><a href="http://www.w3.org/TR/CSS2/visudet.html#normal-block">W3.org</a>: <q>If 'margin-top', or 'margin-bottom' are 'auto', their used value is 0.</q></small></li>
   	  	
   	<li><code>position: absolute;</code> breaks the block out of the typical content flow, rendering the rest of the content as if that block weren't there. 
@@ -198,14 +198,13 @@
   	
   	<li>Giving the block a <code>width</code> or a <code>height</code> prevents the block from taking up all available space and forces the browser to calculate <code>margin: auto</code> based on the new bounding box. <small class="Reference"><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/position#Notes" target="_blank">Developer.mozilla.org</a>: <q>The margin of the [absolutely positioned] element is then positioned inside these offsets.</q></small></li>
   	
-  	<li>Since the block is absolutely positioned and therefore out of the normal flow, margin collapsing doesn't apply and thus the block is centered vertically. 
-  		<small class="Reference"><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/position#Values" target="_blank">Developer.mozilla.org</a>: <q>Absolutely positioned boxes can have margins, they do not collapse with any other margins.</q></small>
-  		<small class="Reference">and most importantly... <a href="http://www.w3.org/TR/CSS2/visudet.html#abs-replaced-height">W3.org</a>: <q>4. If at this point both 'margin-top' and 'margin-bottom' are still 'auto', solve the equation under the extra constraint that the two margins must get equal values.</q> AKA: center the block vertically</small></li>
+  	<li>Since the block is absolutely positioned and therefore out of the normal flow, the browser gives equal values to <code>margin-top</code> and <code>margin-bottom</code> centering the element in the bounds set earlier. 
+  		<small class="Reference"><a href="http://www.w3.org/TR/CSS2/visudet.html#abs-non-replaced-height">W3.org</a>: <q>If none of the three [top, bottom, height] are 'auto': If both 'margin-top' and 'margin-bottom' are 'auto', solve the equation under the extra constraint that the two margins get equal values.</q> AKA: center the block vertically</small></li>
   	</ol>
   	
   	<p>Absolute Centering appears to be the intended use for <code>margin: auto;</code> based on the spec and should therefore work in every standards compliant browser.</p>
   	
-  	<p><strong>TL;DR:</strong> Absolutely positioned elements aren't rendered in the normal flow, so “margin: auto;” centers vertically within the bounds set by “top: 0; left: 0; bottom: 0; right: 0;”.</p>
+  	<p><strong>TL;DR:</strong> Absolutely positioned elements aren't rendered in the normal flow, so <code>margin: auto;</code> centers vertically within the bounds set by <code>top: 0; left: 0; bottom: 0; right: 0;</code>.</p>
   
   </section>
   
@@ -477,7 +476,7 @@ Modernizr.testStyles('#modernizr { display: table; height: 50px; width: 50px; ma
   
   <section id="Other" class="clearfix">
     <h3>Other Techniques</h3>
-    <p><strong>Absolute Centering</strong> works really well for many cases, but there are other methods that may fit more specific needs. The most commonly recommended methods are <strong><a href="#Negative-Margins">Negative Margins</a></strong>, <strong><a href="#Transforms">Transforms</a></strong>, <strong><a href="#Table-Cell">Table-Cell</a></strong>, <strong><a href="#Inline-Block">Inline-Block</a></strong>, and now <strong><a href="#Flexbox">Flexbox</a></strong>. These techniques are covered more in depth in other articles, so I'll only go over the basics here.</p>
+    <p><em>Absolute Centering</em> is a great solution for centering, but there are other methods that may fit more specific needs. The most commonly used or recommended methods are <a href="#Negative-Margins">Negative Margins</a>, <a href="#Transforms">Transforms</a>, <a href="#Table-Cell">Table-Cell</a>, <a href="#Inline-Block">Inline-Block</a>, and now <a href="#Flexbox">Flexbox</a>. They are covered more in depth in other articles, so I'll only cover the basics here.</p>
 
     <div id="Negative-Margins" class="Technique Sub-Section clearfix">
       
@@ -497,10 +496,12 @@ Modernizr.testStyles('#modernizr { display: table; height: 50px; width: 50px; ma
       
       <p>Perhaps the most common technique. If exact dimensions are known, setting a negative margin equal to half the width/height (plus padding, if not using <code>box-sizing: border-box</code>) along with <code>top: 50%; left: 50%;</code> will center the block within a container.</p>
       
+      <p>It should be noted that this is the only method tested that worked as expected in IE6-7.</p>
+      
       <div class="Advantages">
       	<h4>Advantages:</h4>
       	<ul>
-      	<li>Works well cross-browser</li>
+      	<li>Works well cross-browser, including IE6-7</li>
       	<li>Requires minimal code</li>
 	    	</ul>
 	    </div>
@@ -665,9 +666,7 @@ Modernizr.testStyles('#modernizr { display: table; height: 50px; width: 50px; ma
   /* max-width: calc(100% - 0.25em) /* Only for IE9+ */ 
 }</pre>
       </div>
-      <p>By popular demand: Inline-Block centering. The basic idea is using <code>display: inline-block</code>, <code>vertical-align: middle</code> and a psuedo element to center your content block inside of a container. The concept here is best explained in this CSS-Tricks article, <a href="http://css-tricks.com/centering-in-the-unknown/" target="_blank">Centering in the Unknown</a>. My implementation has a few new tricks here that I haven't seen elsewhere that help solve a few issues.</p>
-      
-      <!--<p>I have implemented a few new tricks here that I haven't seen elsewhere, namely switching to an <code>:after</code> psuedo element instead of <code>:before</code> to prevent an issue where the psuedo element would push the content block down to the bottom or worse.</p>-->
+      <p>By popular demand: Inline-Block centering. The basic idea is using <code>display: inline-block</code>, <code>vertical-align: middle</code> and a pseudo element to center your content block inside of a container. The concept here is best explained in this CSS-Tricks article, <a href="http://css-tricks.com/centering-in-the-unknown/" target="_blank">Centering in the Unknown</a>. My implementation has a few new tricks here that I haven't seen elsewhere that help solve a few issues.</p>
       
       <p>The content block's width must be declared to be no wider than 100% of the container minus 0.25em if the content is wider than the container. like a block with long paragraph text. Otherwise, the content block will be pushed to the top, which is the reason for using <code>:after</code>. Using <code>:before</code> caused the content to be pushed down 100%!</p>
       
@@ -680,7 +679,7 @@ Modernizr.testStyles('#modernizr { display: table; height: 50px; width: 50px; ma
       	<ul>
       	<li>Variable height content</li>
       	<li>Content overflows by stretching the parent element</li>
-      	<li>Works well cross-browser, and can be adapted for IE7 support (view the CSS to see)</li>
+      	<li>Works well cross-browser, and can be adapted for IE7 support (view <a href="http://codepen.io/shshaw/pen/gEiDt">the CSS</a> to see)</li>
       	</ul>
       </div>
       
@@ -688,20 +687,18 @@ Modernizr.testStyles('#modernizr { display: table; height: 50px; width: 50px; ma
       	<h4>Caveats:</h4>
       	<ul>
       	<li>Requires a container</li>
-      	<li>Relies on <code>margin-left: -0.25em;</code> to horizontally center correctly, but may need to be adjusted for different fonts/sizes</li>
+      	<li>If you have any spacing in your code (indentation, new lines, etc.), you must use <code>margin-left: -0.25em;</code> on the pseudo element to horizontally center correctly. The exact amount may need to be adjusted for different fonts/sizes. Does not apply if your source code is minified.</li>
       	<li>Content block's width must be declared to be no wider than 100% of the container minus 0.25em.</li>
       	</ul>
       </div>
       
       <p><strong>Futher Resources</strong></p>
-      <p>Read more about Transform Centering in Chris Coyier’s article <a href="http://css-tricks.com/centering-in-the-unknown/">“Centering In The Unknown”</a> on <em>CSS-Tricks</em>.</p>
+      <p>Read more about Transform Centering in Chris Coyier’s article <a href="http://css-tricks.com/centering-in-the-unknown/">"Centering In The Unknown”</a> on <em>CSS-Tricks</em>.</p>
       
-      <div class="Center-Container is-Table Clear">
-        <div class="Table-Cell">
+      <div class="Center-Container is-Inline Clear">
           <div class="Center-Block">
             <h4 class="Title">Absolute Center,<br /> Inline-Block.</h4>
-            <p>This box is absolutely centered vertically using <code>display: inline-block</code>, <code>vertical-align: middle</code> and a psuedo element.</p>
-          </div>
+            <p>This box is absolutely centered vertically using <code>display: inline-block</code>, <code>vertical-align: middle</code> and a pseudo element.</p>
         </div>
       </div>
     </div>
@@ -766,9 +763,9 @@ Modernizr.testStyles('#modernizr { display: table; height: 50px; width: 50px; ma
   <section id="Recommendations" class="clearfix">
     <h3>Recommendations</h3>
 
-    <p>Each technique has their advantages. Which one you choose mainly boils down to which browsers you support and what your existing markup looks like, but use the <a href="#Comparison-Table">comparison table</a> to make the right choice to match the features you need.</p>
+    <p>Each technique has their advantages. Which one you choose mainly boils down to which browsers you support and what your existing markup looks like, but use the <a href="http://codepen.io/shshaw/full/gEiDt#Comparison-Table">comparison table</a> to make the right choice to match the features you need.</p>
     
-    <p><strong>Absolute Centering</strong> works great as a simple drop-in solution with no-fuss. Anywhere you used Negative Margins before, use Absolute Centering instead. You won't have to deal with pesky math for the margins or extra markup, and you can size your boxes responsively.</p>
+    <p><em>Absolute Centering</em> works great as a simple drop-in solution with no-fuss. Anywhere you used Negative Margins before, use Absolute Centering instead. You won't have to deal with pesky math for the margins or extra markup, and you can size your boxes responsively.</p>
     
     <p>If your site requires variable height content with the best browser compatibility, try out the <a href="#Table-Cell">Table-Cell</a>, <a href="#Inline-Block">Inline-Block</a> techniques. If you're on the bleeding edge, give <a href="#Flexbox">Flexbox</a> a try and reap the benefits of its advanced layout techniques.</p>
     
@@ -782,7 +779,7 @@ Modernizr.testStyles('#modernizr { display: table; height: 50px; width: 50px; ma
   <script src="js/modernizr.js"></script>
   <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js'></script>
 
-  <script src="js/index.js"></script>
+	<script src="js/index.js"></script>
   <script src="js/text.js"></script>
 
 </body>
